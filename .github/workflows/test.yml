@@ -19,6 +19,15 @@ jobs:
         go-version: ${{ matrix.go-version }}
     - name: Checkout code
       uses: actions/checkout@v3
+    - name: Install ICU4C
+      if: ${{ matrix.platform == 'ubuntu-latest' }}
+      run: apt-get install -y libicu-dev
+    - name: Install ICU4C
+      if: ${{ matrix.platform == 'macos-latest' }}
+      run: brew install icu4c
+    - name: Install ICU4C
+      if: ${{ matrix.platform == 'windows-latest' }}
+      run: pacman -S mingw-w64-x86_64-icu
     - name: Test
       if: ${{ matrix.platform != 'ubuntu-latest' }}
       run: go test ./...
