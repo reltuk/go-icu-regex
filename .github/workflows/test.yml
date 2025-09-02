@@ -38,7 +38,7 @@ jobs:
       with:
         path-type: inherit
         msystem: UCRT64
-        pacboy: icu:p
+        pacboy: icu:p,toolchain:p,pkg-config:p
     - name: Test
       if: ${{ matrix.platform == 'macos-latest' }}
       run: go test ./...
