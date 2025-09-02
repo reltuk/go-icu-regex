@@ -40,7 +40,7 @@ jobs:
       if: ${{ matrix.platform == 'windows-latest' }}
       shell: msys2 {0}
       run: |
-        go.exe test -c -x .
+        go.exe test ./...
     - name: Test
       if: ${{ matrix.platform == 'ubuntu-latest' }}
       run: go test -race ./...
