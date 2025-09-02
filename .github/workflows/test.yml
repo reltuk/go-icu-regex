@@ -26,6 +26,7 @@ jobs:
       if: ${{ matrix.platform == 'macos-latest' }}
       run: |
         brew install icu4c
+        brew link icu4c
         ls /opt/homebrew/include
         ls /opt/homebrew/Cellar
     - name: Install ICU4C
