@@ -26,8 +26,8 @@ jobs:
       if: ${{ matrix.platform == 'macos-latest' }}
       run: |
         brew install icu4c
-        ls /opt
-        ls /usr/local/Cellar
+        ls /opt/homebrew
+        ls /usr/local/include
     - name: Install ICU4C
       if: ${{ matrix.platform == 'windows-latest' }}
       uses: msys2/setup-msys2@v2
