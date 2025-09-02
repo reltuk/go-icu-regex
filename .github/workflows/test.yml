@@ -27,10 +27,16 @@ jobs:
       run: brew install icu4c
     - name: Install ICU4C
       if: ${{ matrix.platform == 'windows-latest' }}
-      shell: bash
-      run: pacman -S mingw-w64-x86_64-icu
+      uses: msys2/setup-msys2@v2
+      with:
+        msystem: UCRT64
+        pacboy: mingw-w64-ucrt-x86_64-icu:p
     - name: Test
-      if: ${{ matrix.platform != 'ubuntu-latest' }}
+      if: ${{ matrix.platform == 'macos-latest' }}
+      run: go test ./...
+    - name: Test
+      if: ${{ matrix.platform == 'windows-latest' }}
+      shell: msys2 {0}
       run: go test ./...
     - name: Test
       if: ${{ matrix.platform == 'ubuntu-latest' }}
