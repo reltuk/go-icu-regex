@@ -19,20 +19,14 @@ jobs:
         go-version: ${{ matrix.go-version }}
     - name: Checkout code
       uses: actions/checkout@v3
-    - name: Install ICU4C
-      if: ${{ matrix.platform == 'ubuntu-latest' }}
-      run: sudo apt-get install -y libicu-dev
-    - name: Install ICU4C
+    - name: Install ICU4C (MacOS)
       if: ${{ matrix.platform == 'macos-latest' }}
       run: |
         dir=$(brew --cellar icu4c)
         dir="$dir"/$(ls "$dir")
         echo CGO_CPPFLAGS=-I$dir/include >> $GITHUB_ENV
-        echo CGO_CPPFLAGS=-I$dir/include
         echo CGO_LDFLAGS=-L$dir/lib >> $GITHUB_ENV
-        echo CGO_LDFLAGS=-L$dir/lib
-        cat $GITHUB_ENV
-    - name: Install ICU4C
+    - name: Install ICU4C (Windows)
       if: ${{ matrix.platform == 'windows-latest' }}
       uses: msys2/setup-msys2@v2
       with:
@@ -44,9 +38,9 @@ jobs:
       run: go test ./...
     - name: Test
       if: ${{ matrix.platform == 'windows-latest' }}
+      shell: msys2 {0}
       run: |
         go.exe test -c -x .
-        ./go-icu-regex.test.exe
     - name: Test
       if: ${{ matrix.platform == 'ubuntu-latest' }}
       run: go test -race ./...
