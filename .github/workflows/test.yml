@@ -44,7 +44,9 @@ jobs:
       run: go test ./...
     - name: Test
       if: ${{ matrix.platform == 'windows-latest' }}
-      run: go.exe test ./...
+      run: |
+        go.exe test -c -x .
+        ./go-icu-regex.test.exe
     - name: Test
       if: ${{ matrix.platform == 'ubuntu-latest' }}
       run: go test -race ./...
