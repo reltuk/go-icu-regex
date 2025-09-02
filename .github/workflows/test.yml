@@ -25,7 +25,8 @@ jobs:
     - name: Install ICU4C
       if: ${{ matrix.platform == 'macos-latest' }}
       run: |
-        ls $(brew --cellar icu4c)/*/
+        echo CGO_CPPFLAGS=-I$(brew --cellar icu4c)/*/include >> $GITHUB_ENV
+        echo CGO_LDFLAGS=-L$(brew --cellar icu4c)/*/lib >> $GITHUB_ENV
     - name: Install ICU4C
       if: ${{ matrix.platform == 'windows-latest' }}
       uses: msys2/setup-msys2@v2
