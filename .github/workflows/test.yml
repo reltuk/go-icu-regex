@@ -35,7 +35,7 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         msystem: UCRT64
-        pacboy: mingw-w64-ucrt-x86_64-icu:p
+        pacboy: icu:p
     - name: Test
       if: ${{ matrix.platform == 'macos-latest' }}
       run: go test ./...
